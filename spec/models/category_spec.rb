@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 describe Category do
-  it { should have_many :articles }
+  it "a category should have a non nil access_count" do
+    category = FactoryGirl.create(:category)
+    expect(category.access_count).to_not be_nil
+  end
 
-  it { should respond_to :name }
-  it { should respond_to :access_count }
-
-  let(:category) { FactoryGirl.create :category}
-  it { should be_valid }
-  subject { category }
-  its(:access_count) { should_not be_nil }
-
+  describe "all_by_access_count scope" do
+    it "returns categories in descending order of their access_counts" do
+      first_category = FactoryGirl.create(:category, access_count: 5)
+      second_category = FactoryGirl.create(:category, access_count: 3)
+      expect(Category.by_access_count).to eq([first_category, second_category])
+    end
+  end
 end

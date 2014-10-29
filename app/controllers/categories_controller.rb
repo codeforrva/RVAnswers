@@ -1,20 +1,58 @@
 class CategoriesController < ApplicationController
+  before_action :require_signin
+  skip_before_action :require_signin, only: [:show, :index]
+
+  respond_to :json, :html
+  def index
+    @categories = Category.by_access_count
+    respond_with(@categories)
+  end
+
   def show
-    return render(:template => 'categories/missing') unless Category.exists? params[:id]
-    @bodyclass = "results"
+    @category = Category.friendly.find(params[:id])
+    @category.increment! :access_count
+    respond_with(@category)
+  end
 
-    @category = Category.find(params[:id])
-    # redirection of old permalinks
-    if request.path != category_path(@category)
-      logger.info "Old permalink: #{request.path}"
-      return redirect_to @category, status: :moved_permanently
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.new(category_params.merge(user: @current_user))
+    if @category.save
+      flash[:success] = "New category created"
+      redirect_to category_path(@category)
+    else
+      flash.now[:error] = "Please fill in all required fields"
+      render :new
     end
+  end
 
-    @category.delay.increment! :access_count
+  def edit
+    @category = Category.friendly.find(params[:id])
+  end
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @category }
+  def update
+    @category = Category.friendly.find(params[:id])
+    if @category.update_attributes(category_params.merge(user: @current_user))
+      flash[:success] = "Category successfully updated"
+      redirect_to category_path(@category)
+    else
+      flash.now[:error] = "Please fill in all required fields"
+      render :edit
+    end
+  end
+
+  private
+
+  def category_params
+    params.require(:category).permit(:name, :description, :user)
+  end
+
+  def require_signin
+    if current_user.nil?
+      redirect_to root_path
     end
   end
 end

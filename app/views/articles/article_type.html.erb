@@ -1,10 +1,4 @@
-<% set_meta_tags :description => "All #{@article_type.split(/(?=[A-Z])/).join(' ')} questions.", :canonical => "http://answers.honolulu.gov#{request.fullpath}" %>
 <div class="page-container">
-  <div class="breadcrumbs">
-    <%= link_to( "Home", root_url) %>
-    >
-    <%= title "All #{@article_type.split(/(?=[A-Z])/).join(' ')}s" %>
-  </div>
   <div class="row">
     <div class="span9">
       <div class="main-content">
@@ -13,7 +7,7 @@
           <% category = nil %>
           <% @articles.each do |article| %>
           <% next unless article.published? %>
-            
+
               <% if( article.category != category) %>
                 <% if(category) %>
                     </ul>
@@ -27,10 +21,25 @@
                   <% end %>
                    <ul class="category-articles">
               <% end %>      
-                    
                       <li class="article-listing">
                         <%= content_tag(:h2, link_to(article.title,article))%>
                         <p class="preview"><%= article.preview %></p>
+                        <div class="other-langs">
+                          <% if article.title_es.present? %>
+                          <div class="preview-es">
+                            <img src="/assets/es.gif" title="This content is also in Spanish" />
+                            <%= content_tag(:h3, link_to(article.title_es,article))%>
+                            <p class="preview"><%= article.preview_es %></p>
+                          </div>
+                          <% end %>
+                          <% if article.title_cn.present? %>
+                          <div class="preview-cn">
+                            <img src="/assets/cn.gif" title="This content is also in Chinese" />
+                            <%= content_tag(:h3, link_to(article.title_cn,article))%>
+                            <p class="preview"><%= article.preview_cn %></p>
+                          </div>
+                          <% end %>
+                        </div>
                       </li>
           <% end %>
           <% if(category) %>

@@ -1,4 +1,4 @@
-Honoluluanswers::Application.configure do
+Oaklandanswers::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
@@ -24,7 +24,7 @@ Honoluluanswers::Application.configure do
   config.assets.digest = true
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( style.css mobile.css.scss active_admin.js active_admin.css.scss )
+  config.assets.precompile += %w( home.js style.css mobile.css.scss active_admin.js active_admin.css.scss indextank/jquery.indextank.autocomplete.js )
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -88,4 +88,6 @@ Honoluluanswers::Application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.cache_store = :dalli_store
+
+  config.eager_load = true
 end

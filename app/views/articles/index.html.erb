@@ -1,21 +1,17 @@
-<div class="page-container">
-  <div class="breadcrumbs">
-    <%= link_to( "Home", root_url) %>
-    >
-    All Articles
-  </div>
+<div class="page-container span12 center">
   <div class="row">
     <div class="span9">
       <div class="main-content">
-        <div class="header"><h1>All Articles</h1></div>
-        <ul>
+        <div class="header"><h1>All Questions & Answers</h1></div>
+        <ul class="categories">
           <% @categories.each do |category| %>
             <li class="category-listing">
               <%= content_tag(:h1, link_to(category.name,category))%>
                 <ul class="category-articles">
                   <% category.articles.by_access_count.each do |article| %>
-                    <% next unless article.published? %>
-                      <li class="category-article"><%= content_tag( :h3, link_to( article.title, article_path(article.id) ) ) %></li>
+                      <li class="category-article">
+                        <%= content_tag(:h2, link_to( article.title, article_path(article) ) ) %>
+                      </li>
                   <% end -%>
                 </ul>
             </li>
@@ -24,7 +20,7 @@
       </div>
     </div>
     <div class="span3">
-      <%= render :partial => 'shared/categories_sidebar' %>
-    </div><!-- /span3 -->
+      <%= render partial: 'shared/categories_sidebar' %>
+    </div>
   </div>
-</div> 
+</div>

@@ -1,92 +1,105 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <%= display_meta_tags :site => "Honolulu Answers" %>
-  <meta name="robots" content="index,nofollow" />
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale =1,maximum-scale=1,user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <%= stylesheet_link_tag    "application-all", :media => "all" %>
-  <%= stylesheet_link_tag    "application-mobile", :media => "all and (max-width: 969px)" %>
-  <%= stylesheet_link_tag    "application-print", :media => "print" %>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Oakland Answers" %></title>
+    <script src="https://login.persona.org/include.js"></script>
+    <script type="text/javascript">
+      var currentUser = <% if session[:email] %>'<%= session[:email] %>'<% else %>null<% end %>;
+    </script>
 
-  <!--[if lte IE 8]>
-    <%= stylesheet_link_tag    "application-ie", :media=> "all" %>
-  <![endif]-->
-  <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
 
-  <%= csrf_meta_tags %>
-</head>
-<body class="<%= @bodyclass %>" onload="if($){ $('#query').focus(); }">
-<div id="wrapper">
-  <div class="navbar-top">
-    <!-- <p class="notice alert alert-info"><%= notice %></p>
-    <p class="alert alert-error"><%= alert %></p> -->
-    <div class="container">
-      <div class="row">
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <style>
+      body {
+       background:transparent url('<%= ENV["BACKGROUND_IMAGE"] %>') repeat 0 100%;
+      }
+    </style>
+
+    <!-- For third-generation iPad with high-resolution Retina display: -->
+    <!-- Size should be 144 x 144 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <!-- For iPhone with high-resolution Retina display: -->
+    <!-- Size should be 114 x 114 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <!-- For first- and second-generation iPad: -->
+    <!-- Size should be 72 x 72 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <!-- Size should be 57 x 57 pixels -->
+    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <!-- For all other devices -->
+    <!-- Size should be 32 x 32 pixels -->
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+
+    <%= javascript_include_tag "application" %>
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-inverse">
+      <div class="navbar-inner">
+        <div class="row">
         <div class="logo span4">
-          <a href="/" class="hnl-logo">Honolulu Answers</a>
-          <span class="bubble"><img src="/assets/beta.png" class="beta" alt="beta"></span>
+          <%= link_to "Oakland Answers", root_path, class: "oakland-logo" %>
+          <span>
+            <img src="/assets/beta.png" class="beta" alt="beta">
+          </span>
         </div>
-        <ul class="nav-top span5">
-          <li class="">
-            <%= link_to("Quick Answers", "/articles/article-type/quick-answer") %>
-          </li>
-          <li class="">
-            <%= link_to("Guides", "/articles/article-type/guide") %>
-          </li>
-          <li class="">
-            <%= link_to("Web Services", "/articles/article-type/web-service") %>
-          </li>
-        </ul>
-        <% if !current_page?('/')  %>
-        <div class="header-search span3">
-          <%= render :partial => 'shared/search_form' %>
+            <ul class="nav nav-links span5">
+              <li><%= link_to "Browse Q&A's", articles_path %></li>
+              <% if @current_user.present? %>
+                <li><%= link_to "Create a New Q&A", new_article_path %></li>
+              <% end %>
+            </ul>
+          <form id="sign-in">
+            <% if @current_user.present? %>
+              <input type="button" class="btn" id="signout" value="Sign out">
+            <% else %>
+              <input type="button" class="btn" id="signin" value="Sign in">
+            <% end %>
+          </form>
+      </div>
+    </div>
+
+    <div class="container main clearfix"><!-- main content container -->
+
+    <% flash.each do |type, message| %>
+      <div class="alert <%= bootstrap_class_for(type) %> alert-dismissable fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <%= message %>
+      </div>
+    <% end %>
+    <%= yield %>
+    </div>
+
+    <div id="footer">
+        <div class="cfa-logos">
+          <a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_footer.png" class="right" alt="Code for America" /></a>
+          <span class="plus">&#43;</span>
+          <a href="http://openoakland.org/"><img src="/assets/openoaklandlogo.png" class="right" alt="City of Oakland" /></a>
+          <span class="plus">&#43;</span>
+          <a href="http://www2.oaklandnet.com"><img src="/assets/OaklandCityTree.png" class="right" alt="City of Oakland" /></a>
         </div>
-        <% end %>
-      </div><!-- /row -->
     </div>
-  </div><!-- /navbar-top -->
-  <div class="container main clearfix"><!-- main content container -->
 
+    <script type="text/javascript">
+      var signinLink = document.getElementById('signin');
+      if (signinLink) {
+        signinLink.onclick = function() { navigator.id.request(); };
+      }
 
+      var signoutLink = document.getElementById('signout');
+      if (signoutLink) {
+        signoutLink.onclick = function() { navigator.id.logout(); };
+      }
+    </script>
 
-<%= yield %>
-
-
-
-  </div><!-- /container-fluid -->
-</div><!-- /wrapper -->
-<div class="footer">
-  <div class="container">
-    <ul class="footer-links">
-      <li><%=link_to("About", about_path)%></li>
-      <li><a href="mailto:hnlanswerseditors@honolulu.gov">Contact</a></li>
-      <li><a href="https://github.com/honolulu/honolulu_answers">Contribute</a></li>
-      <li><%= link_to("Sign In", admin_root_path) %></li>
-    </ul>
-    <div class="cfa-logos">
-      <a href="http://ixda.org/">
-        <img src="/assets/HNLAnswers_2013InteractionAwards_WinnerConnecting.png" alt="Interaction Awards Winner for facilitating communication between people and communities." />
-      </a>
-      <a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_footer.png" class="right" alt="Code for America" /></a>
-      <span class="plus">&#43;</span>
-      <a href="http://honolulu.gov"><img src="/assets/hnl_gov.png" class="right" alt="City and County of Honolulu" /></a>
-    </div>
-  </div>
-</div><!-- /footer -->
-
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '<%=ENV['GOOGLE_ANALYTICS_KEY']%>']);
-  _gaq.push(['_trackPageview']);
-  
-  (function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-
-</body>
+  </body>
 </html>

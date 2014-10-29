@@ -1,9 +1,11 @@
-module Markdownifier
-  include HTTParty
+require 'reverse_markdown'
 
-  def html_to_markdown( html, options = {} )
-    options.merge!( { :query => { :html => html } } )
-    response = self.class.post( 'http://fuckyeahmarkdown.com/go/', options )
-    return response.body
+module Markdownifier
+  class Markdownifier
+
+    def html_to_markdown( html, options = {} )
+      ReverseMarkdown.convert(html)
+    end
+
   end
 end

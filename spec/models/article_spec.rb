@@ -1,25 +1,28 @@
 require 'spec_helper'
 
 describe Article do
-  it { should belong_to :contact}
-  it { should belong_to :category}
-  it { should have_many(:keywords).through :wordcounts }
-  it { should have_many :wordcounts }
+  let(:article) { FactoryGirl.create(:article) }
+  subject       { article }
 
-  it { should respond_to :title }
-  it { should respond_to :category }
-  it { should respond_to :preview }
-  it { should respond_to :tags }
-  it { should respond_to :access_count }
+  describe '.indexable?' do
+    it 'returns true if article is published' do
+      article.status = "Published"
 
-  it { should respond_to :content_main }
-  it { should respond_to :content_main_extra }
-  it { should respond_to :content_need_to_know }
+      expect(article.indexable?).to eq(true)
+    end
 
-  let(:article) { FactoryGirl.create(:quick_answer) }
-  subject { article }
-  it { should be_valid }
-  its(:access_count) { should_not be_nil }
+    it 'returns false if article is not published' do
+      article.status = 'Merp'
+      article.save
 
+      expect(article.indexable?).to eq(false)
+    end
+  end
+
+  describe '#before_validation' do
+    it 'sets access count if nil' do
+      not_accessed_article = FactoryGirl.create(:article, title: "Forever alone article")
+      expect(not_accessed_article.access_count).to eq(0)
+    end
+  end
 end
-

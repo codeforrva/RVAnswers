@@ -1,61 +1,43 @@
-[Honolulu Answers](http://answers.honolulu.gov) is a new approach to make it easier for people to navigate city information and services quickly. It's a citizen-focused website that is question-driven, with clean, easy-to-navigate design. Unlike a portal destination, Honolulu Answers is like Google -- type in anything, and it probably gives you the answer you're looking for, using the words you know. Every page on the site is an answer to a potential Google search question by a citizen, written in simple, friendly language, as if you'd asked your neighbor a question. The content is organized based on citizen understanding, the intuitive way you'd think of a problem, not the way the city is organized internally.
+[![Build Status](https://travis-ci.org/codeforamerica/oakland_answers.svg?branch=master)](https://travis-ci.org/codeforamerica/oakland_answers)
 
-Honolulu Answers is designed to be very user-friendly. It declutters the govt website experience, and it solves a problem people ordinarily have. And we hope it makes people's lives easier. Inspired by Gov.uk, Honolulu Answers is a first-of-its-kind for municipal government, a partnership between Code for America and the City & County of Honolulu.
+# Oakland Answers
 
-## First, a big Thank You:
+Oakland Answers is based on [Honolulu Answers](http://answers.honolulu.gov): a new approach to make it easier for people to navigate city information and services quickly.
 
-* Search results are aided by a thesaurus service provided by [words.bighugelabs.com](http://words.bighugelabs.com/).
-* Background photo courtesy of [Royal Realty](http://royalrealtyllc.com/)
+## Installation
 
+**If you are using OS X Mountain Lion and above, please follow this guide**
 
-## Deploying Locally
+## Local Setup
 
-**If you are using OS X Snow Leopard, Lion or Mountain Lion, please follow this guide which will take you through the setup procedure**
-
-Mac OS X is best supported by Honolulu Answers, since it is what most of us at Code for America use. Ubuntu (and therefore presumeably other linux distributions) are also supported.  Windows is currently unsupported and untested.  
-
-[Instructions for OS X 10.8 Mountain Lion](https://github.com/codeforamerica/honolulu_answers/wiki/Installation-Instructions-for-OS-X-10.8-Mountain-Lion)
-
-Slightly outdated Ubuntu instructions are available [here](https://github.com/codeforamerica/honolulu_answers/wiki/Installation-Instructions-for-Ubuntu-12.04-Precise).
-
+    $ git clone git@github.com:codeforamerica/oakland_answers.git
+    $ cd oakland_answers
+    $ rake db:create:all
+    $ rake db:migrate
+    $ rake db:seed
 
 ## Usage
-    
+
     $ foreman start
 
-## Deploying to Heroku
-    
-See the wiki for up-to-date instructions:
+visit http://localhost:5000 in your web browser
 
-[https://github.com/codeforamerica/honolulu_answers/wiki/Installation-Instructions-for-OS-X-10.8-Mountain-Lion#deploying-on-heroku](https://github.com/codeforamerica/honolulu_answers/wiki/Installation-Instructions-for-OS-X-10.8-Mountain-Lion#deploying-on-heroku)
+## Deploying to Heroku
+
+Create a new application in your heroku dashboard
+
+In your project directory:
+
+    $ git push heroku master
+    $ heroku run rake db:migrate
+    $ heroku config:set OFFICIAL_CITY_NAME=<your city name>
+    $ heroku config:set OFFICIAL_SITE_TITLE=<your site title>
+
+For reference, see: [https://devcenter.heroku.com/articles/getting-started-with-rails4#deploy-your-application-to-heroku](https://devcenter.heroku.com/articles/getting-started-with-rails4#deploy-your-application-to-heroku)
 
 ## Testing
 
-`foreman run bundle exec rake spec` command will run the current tests, these test need to be expanded.
-
-## Contributing
-In the spirit of [free software][free-sw], **everyone** is encouraged to help
-improve this project.
-
-[free-sw]: http://www.fsf.org/licensing/essays/free-sw.html
-
-Here are some ways *you* can contribute:
-
-* by using alpha, beta, and prerelease versions
-* by reporting bugs
-* by suggesting new features
-* by translating to a new language
-* by writing or editing documentation
-* by writing specifications
-* by writing code (**no patch is too small**: fix typos, add comments, clean up
-  inconsistent whitespace)
-* by refactoring code
-* by closing [issues][]
-* by reviewing patches
-* [financially][]
-
-[issues]: https://github.com/codeforamerica/honolulu_answers/issues
-[financially]: https://secure.codeforamerica.org/page/contribute
+`rake spec` command will run the current tests
 
 ## Submitting an Issue
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
@@ -73,37 +55,8 @@ bug report should include a pull request with failing specs.
 2. Create a topic branch.
 3. Implement your feature or bug fix.
 4. Add tests for your feature or bug fix.
-5. Run `bundle exec rake test`. If your changes are not 100% covered, go back
-   to step 4.
-6. Commit and push your changes.
-7. Submit a pull request. Please do not include changes to the gemspec or
-   version file. (If you want to create your own version for some reason,
-   please do so in a separate commit.)
-
-## Roadmap
-* Support other search indexes backends/services (perhaps just fulltext search in DB as a fallback)
-* A comprehensive admin component
-* Results tailored to current location
-
-## Supported Ruby Versions
-This library aims to support and is [tested against][travis] the following Ruby
-implementations:
-
- * Ruby 1.9.3
-
-If something doesn't work on one of these interpreters, it should be considered
-a bug.
-
-This library may inadvertently work (or seem to work) on other Ruby
-implementations, however support will only be provided for the versions listed
-above.
-
-If you would like this library to support another Ruby version, you may
-volunteer to be a maintainer. Being a maintainer entails making sure all tests
-run and pass on that implementation. When something breaks on your
-implementation, you will be personally responsible for providing patches in a
-timely fashion. If critical issues for a particular implementation exist at the
-time of a major release, support for that Ruby version may be dropped.
+5. Commit and push your changes.
+6. Submit a pull request.
 
 ## License
 
