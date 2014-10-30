@@ -1,10 +1,7 @@
 class RenameTypeToContentType < ActiveRecord::Migration
-  def up
+  def change
 
     rename_column :articles, :type, :content_type
     
-  end
-
-  def down
   end
 end

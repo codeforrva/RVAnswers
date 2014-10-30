@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.1.3'
 gem 'nokogiri', '~> 1.6.2.1'
 gem 'rails', '4.1.0'
 gem 'pg'
@@ -42,6 +42,7 @@ group :development do
   gem 'guard-spork'
   gem 'pry-rails'
   gem 'spring-commands-rspec'
+  gem 'sqlite3', '~> 1.3.9'
 end
 
 group :test, :development do
@@ -52,10 +53,10 @@ group :test, :development do
 end
 
 group :test do
-  gem 'capybara'
-  gem 'capybara-webkit'
-  gem 'database_cleaner'
-  gem 'launchy'
-  gem 'spork-rails'
-  gem 'webmock'
+  #gem 'capybara'
+  #gem 'capybara-webkit'
+  #gem 'database_cleaner'
+  #gem 'launchy'
+  #gem 'spork-rails'
+  #gem 'webmock'
 end

@@ -10,8 +10,8 @@ class ModifyAdmin < ActiveRecord::Migration
   def down
   	add_column :admins, :remember_created_at, :datetime
   	## Lockable
-    drop_column :admins, :failed_attempts# Only if lock strategy is :failed_attempts
-    drop_column :admins, :unlock_token # Only if unlock strategy is :email or :both
-    drop_column :admins, :locked_at
+    remove_column :admins, :failed_attempts# Only if lock strategy is :failed_attempts
+    remove_column :admins, :unlock_token # Only if unlock strategy is :email or :both
+    remove_column :admins, :locked_at
   end
 end
