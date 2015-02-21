@@ -46,7 +46,7 @@
             <img src="/assets/beta.png" class="beta" alt="beta">
           </span>
         </div>
-            <ul class="nav nav-links span6">
+            <ul class="nav nav-links span8">
               <li><%= link_to "Browse", articles_path %></li>
               <% if @current_user.present? && is_admin?(@current_user.email) %>
                 <li><%= link_to "New Category", new_category_path %></li>
