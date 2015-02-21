@@ -49,6 +49,10 @@ In your project directory:
     $ git push heroku master
     $ heroku run rake db:migrate
 
+Make sure to set appropriate environment variables (SECRET_TOKEN is required):
+
+    $ heroku config:set SECRET_TOKEN=xxxxx
+
 For reference, see: [https://devcenter.heroku.com/articles/getting-started-with-rails4#deploy-your-application-to-heroku](https://devcenter.heroku.com/articles/getting-started-with-rails4#deploy-your-application-to-heroku)
 
 
