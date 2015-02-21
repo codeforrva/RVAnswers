@@ -1,56 +1,77 @@
-[![Build Status](https://travis-ci.org/codeforamerica/oakland_answers.svg?branch=master)](https://travis-ci.org/codeforamerica/oakland_answers)
+# Richmond Answers
 
-# Oakland Answers
+Richmond Answers is based on [Oakland Answers](http://answers.oaklandnet.com/): a new approach to make it easier for people to navigate city information and services quickly. This particular fork was a project started during CodeAcross RVA.
 
-Oakland Answers is based on [Honolulu Answers](http://answers.honolulu.gov): a new approach to make it easier for people to navigate city information and services quickly.
 
 ## Installation
 
 **If you are using OS X Mountain Lion and above, please follow this guide**
 
+
 ## Local Setup
 
-    $ git clone git@github.com:codeforamerica/oakland_answers.git
+    $ git clone git@github.com:nikiliu/RVAnswers.git
     $ cd oakland_answers
-    $ rake db:create:all
-    $ rake db:migrate
-    $ rake db:seed
+    $ bundle install
+    $ bundle exec rake db:create:all
+    $ bundle exec rake db:migrate
+    $ bundle exec rake db:seed
+    $ cp .env.example .env
+    $ bundle exec rake secret # set this as key value for SECRET_TOKEN in .env
+
+You then need to obtain API keys and set them in `.env` for the application to run properly.
+
+1. [Searchify](https://www.searchify.com/)
+2. [Amazon S3](http://aws.amazon.com/s3/)
+
 
 ## Usage
 
     $ foreman start
 
-visit http://localhost:5000 in your web browser
+Visit http://localhost:3000 in your web browser.
+
+
+## First-time Heroku setup
+
+    $ heroku create mycity-answers
+
+
+## If instance already exists...
+
+    $ heroku git:remote -a mycity-answers -r heroku
+
 
 ## Deploying to Heroku
-
-Create a new application in your heroku dashboard
 
 In your project directory:
 
     $ git push heroku master
     $ heroku run rake db:migrate
-    $ heroku config:set OFFICIAL_CITY_NAME=<your city name>
-    $ heroku config:set OFFICIAL_SITE_TITLE=<your site title>
 
 For reference, see: [https://devcenter.heroku.com/articles/getting-started-with-rails4#deploy-your-application-to-heroku](https://devcenter.heroku.com/articles/getting-started-with-rails4#deploy-your-application-to-heroku)
 
+
 ## Testing
 
-`rake spec` command will run the current tests
+`bundle exec rake spec` command will run the current tests
+
 
 ## Submitting an Issue
+
 We use the [GitHub issue tracker][issues] to track bugs and features. Before
 submitting a bug report or feature request, check to make sure it hasn't
 already been submitted. You can indicate support for an existing issue by
-voting it up. When submitting a bug report, please include a [Gist][] that
+voting it up. When submitting a bug report, please include a [Gist][gist] that
 includes a stack trace and any details that may be necessary to reproduce the
 bug, including your gem version, Ruby version, and operating system. Ideally, a
 bug report should include a pull request with failing specs.
 
 [gist]: https://gist.github.com/
 
+
 ## Submitting a Pull Request
+
 1. Fork the project.
 2. Create a topic branch.
 3. Implement your feature or bug fix.
@@ -58,9 +79,10 @@ bug report should include a pull request with failing specs.
 5. Commit and push your changes.
 6. Submit a pull request.
 
+
 ## License
 
-Copyright (c) 2012, Code for America.
+Copyright (c) 2015, Code for America.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
