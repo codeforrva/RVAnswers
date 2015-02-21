@@ -416,6 +416,14 @@ input:hover#query { }
   bottom: 0;
 }
 
+#signin, #signout {
+  background: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
 .cfa-logos {
   float: right;
   display: block;
