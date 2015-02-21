@@ -6,11 +6,13 @@
 /* General Styles */
 /* -------------- */
 body {
+  font: 100%/1.5 "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
+  background-color: black;
+}
+.rvanswers-body {
   background-image: url("background_image.jpg");
   background-position: fixed;
   background-size: cover;
-  font: 100%/1.5 "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
-  background-color: black;
 }
 
 /* Fonts */
