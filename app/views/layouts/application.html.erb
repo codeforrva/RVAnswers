@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Oakland Answers" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Richmond Answers" %></title>
     <script src="https://login.persona.org/include.js"></script>
     <script type="text/javascript">
       var currentUser = <% if session[:email] %>'<%= session[:email] %>'<% else %>null<% end %>;
@@ -13,12 +13,6 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-
-    <style>
-      body {
-       background:transparent url('<%= ENV["BACKGROUND_IMAGE"] %>') repeat 0 100%;
-      }
-    </style>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -47,7 +41,7 @@
       <div class="navbar-inner">
         <div class="row">
         <div class="logo span4">
-          <%= link_to "Oakland Answers", root_path, class: "oakland-logo" %>
+          <%= link_to "Richmond Answers", root_path, class: "oakland-logo" %>
           <span>
             <img src="/assets/beta.png" class="beta" alt="beta">
           </span>
@@ -82,10 +76,6 @@
     <div id="footer">
         <div class="cfa-logos">
           <a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_footer.png" class="right" alt="Code for America" /></a>
-          <span class="plus">&#43;</span>
-          <a href="http://openoakland.org/"><img src="/assets/openoaklandlogo.png" class="right" alt="City of Oakland" /></a>
-          <span class="plus">&#43;</span>
-          <a href="http://www2.oaklandnet.com"><img src="/assets/OaklandCityTree.png" class="right" alt="City of Oakland" /></a>
         </div>
     </div>
 
