@@ -47,9 +47,9 @@
           </span>
         </div>
             <ul class="nav nav-links span5">
-              <li><%= link_to "Browse Q&A's", articles_path %></li>
+              <li><%= link_to "Browse", articles_path %></li>
               <% if @current_user.present? %>
-                <li><%= link_to "Create a New Q&A", new_article_path %></li>
+                <li><%= link_to "New Answer", new_article_path %></li>
               <% end %>
             </ul>
           <form id="sign-in">
