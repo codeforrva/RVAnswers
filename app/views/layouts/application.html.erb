@@ -46,19 +46,14 @@
             <img src="/assets/beta.png" class="beta" alt="beta">
           </span>
         </div>
-            <ul class="nav nav-links span5">
+            <ul class="nav nav-links span6">
               <li><%= link_to "Browse", articles_path %></li>
-              <% if @current_user.present? %>
+              <% if @current_user.present? && is_admin?(@current_user.email) %>
+                <li><%= link_to "New Category", new_category_path %></li>
                 <li><%= link_to "New Answer", new_article_path %></li>
               <% end %>
+              <li><%= link_to "Give Feedback", "https://docs.google.com/a/inmunited.com/forms/d/1TRD0-u0pqrZeEq2lopSY7Tg_6kbUNB5vBzb3Xm5ri3k/viewform", target: "_blank" %></li>
             </ul>
-          <form id="sign-in">
-            <% if @current_user.present? %>
-              <input type="button" class="btn" id="signout" value="Sign out">
-            <% else %>
-              <input type="button" class="btn" id="signin" value="Sign in">
-            <% end %>
-          </form>
       </div>
     </div>
 
@@ -74,6 +69,13 @@
     </div>
 
     <div id="footer">
+      <form id="sign-in">
+        <% if @current_user.present? %>
+          <input type="button" class="btn" id="signout" value="Sign out">
+        <% else %>
+          <input type="button" class="btn" id="signin" value="Sign in">
+        <% end %>
+      </form>
         <div class="cfa-logos">
           <a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_footer.png" class="right" alt="Code for America" /></a>
         </div>
@@ -89,6 +91,16 @@
       if (signoutLink) {
         signoutLink.onclick = function() { navigator.id.logout(); };
       }
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59990056-1', 'auto');
+      ga('send', 'pageview');
     </script>
 
   </body>

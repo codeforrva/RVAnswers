@@ -17,4 +17,20 @@ module ApplicationHelper
         flash_type.to_s
     end
   end
+
+  # Given an email address, determine whether it is an "admin" email address.
+  # @param {string} - email
+  # @return {boolean}
+  def is_admin?(email)
+    ["oscarluke@me.com",
+     "krb232@gmail.com",
+     "info@bronzerocket.com",
+     "crm@richmondgov.com",
+     "david.boone@richmondgov.com",
+     "lana.agostini@richmondgov.com",
+     "lisa.smith@ricgmondgov.com",
+     "humanblueprint@gmail.com",
+     "zach.mcauliffe@gmail.com",
+     "nliu@inmunited.com"].include?(email)
+  end
 end

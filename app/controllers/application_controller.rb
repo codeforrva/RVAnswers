@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
   helper :all
 
+  include ApplicationHelper
+
   def stop_words
     @stop_words ||= Rails.cache.fetch('stop_words') do
       CSV.read( "lib/assets/eng_stop.csv" ).flatten
@@ -18,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login
-    if current_user.nil?
+    if current_user.nil? || !is_admin?(current_user.email)
       redirect_to root_url
     end
   end
