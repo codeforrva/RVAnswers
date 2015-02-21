@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   respond_to :json, :html
   def index
-    @categories = Category.by_access_count
+    @categories = Category.all.order(:name)
     respond_with(@categories)
   end
 
