@@ -6,6 +6,9 @@
 /* General Styles */
 /* -------------- */
 body {
+  background-image: url("background_image.jpg");
+  background-position: fixed;
+  background-size: cover;
   font: 100%/1.5 "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
   background-color: black;
 }
@@ -136,6 +139,7 @@ a.oakland-logo {
 .navbar-inner {
   height: 80px;
   width: 100%
+  box-sizing: border-box;
 }
 
 img.beta {
