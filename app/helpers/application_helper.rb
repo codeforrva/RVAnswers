@@ -28,7 +28,7 @@ module ApplicationHelper
      "crm@richmondgov.com",
      "david.boone@richmondgov.com",
      "lana.agostini@richmondgov.com",
-     "lisa.smith@ricgmondgov.com",
+     "lisa.smith@richmondgov.com",
      "humanblueprint@gmail.com",
      "zach.mcauliffe@gmail.com",
      "nliu@inmunited.com"].include?(email)
