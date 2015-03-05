@@ -1,10 +1,10 @@
 class CategoriesController < ApplicationController
-  before_action :require_signin
-  skip_before_action :require_signin, only: [:show, :index]
+  before_action :require_login
+  skip_before_action :require_login, only: [:show, :index]
 
   respond_to :json, :html
   def index
-    @categories = Category.by_access_count
+    @categories = Category.all.order(:name)
     respond_with(@categories)
   end
 

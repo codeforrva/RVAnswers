@@ -8,7 +8,6 @@ Oaklandanswers::Application.routes.draw do
   resources :categories
   root to: "home#index"
 
-  get '/about', to: "home#about" , as: :about
   match '/search/', to: "search#index" , as: :search, via: [:get, :post]
 
   post 'persona/login' => 'persona#login'

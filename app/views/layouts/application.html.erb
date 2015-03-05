@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Oakland Answers" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Richmond Answers" %></title>
     <script src="https://login.persona.org/include.js"></script>
     <script type="text/javascript">
       var currentUser = <% if session[:email] %>'<%= session[:email] %>'<% else %>null<% end %>;
@@ -13,12 +13,6 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag "application", :media => "all" %>
-
-    <style>
-      body {
-       background:transparent url('<%= ENV["BACKGROUND_IMAGE"] %>') repeat 0 100%;
-      }
-    </style>
 
     <!-- For third-generation iPad with high-resolution Retina display: -->
     <!-- Size should be 144 x 144 pixels -->
@@ -42,29 +36,24 @@
 
     <%= javascript_include_tag "application" %>
   </head>
-  <body>
+  <body class="rvanswers-body">
     <div class="navbar navbar-default navbar-inverse">
       <div class="navbar-inner">
         <div class="row">
         <div class="logo span4">
-          <%= link_to "Oakland Answers", root_path, class: "oakland-logo" %>
+          <%= link_to "Richmond Answers", root_path, class: "oakland-logo" %>
           <span>
             <img src="/assets/beta.png" class="beta" alt="beta">
           </span>
         </div>
-            <ul class="nav nav-links span5">
-              <li><%= link_to "Browse Q&A's", articles_path %></li>
-              <% if @current_user.present? %>
-                <li><%= link_to "Create a New Q&A", new_article_path %></li>
+            <ul class="nav nav-links span8">
+              <li><%= link_to "Browse", articles_path %></li>
+              <% if @current_user.present? && is_admin?(@current_user.email) %>
+                <li><%= link_to "New Category", new_category_path %></li>
+                <li><%= link_to "New Answer", new_article_path %></li>
               <% end %>
+              <li><%= link_to "Give Feedback", "https://docs.google.com/a/inmunited.com/forms/d/1TRD0-u0pqrZeEq2lopSY7Tg_6kbUNB5vBzb3Xm5ri3k/viewform", target: "_blank" %></li>
             </ul>
-          <form id="sign-in">
-            <% if @current_user.present? %>
-              <input type="button" class="btn" id="signout" value="Sign out">
-            <% else %>
-              <input type="button" class="btn" id="signin" value="Sign in">
-            <% end %>
-          </form>
       </div>
     </div>
 
@@ -80,12 +69,15 @@
     </div>
 
     <div id="footer">
+      <form id="sign-in">
+        <% if @current_user.present? %>
+          <input type="button" class="btn" id="signout" value="Sign out">
+        <% else %>
+          <input type="button" class="btn" id="signin" value="Sign in">
+        <% end %>
+      </form>
         <div class="cfa-logos">
           <a href="http://codeforamerica.org/"><img src="/assets/cfa_logo_footer.png" class="right" alt="Code for America" /></a>
-          <span class="plus">&#43;</span>
-          <a href="http://openoakland.org/"><img src="/assets/openoaklandlogo.png" class="right" alt="City of Oakland" /></a>
-          <span class="plus">&#43;</span>
-          <a href="http://www2.oaklandnet.com"><img src="/assets/OaklandCityTree.png" class="right" alt="City of Oakland" /></a>
         </div>
     </div>
 
@@ -99,6 +91,16 @@
       if (signoutLink) {
         signoutLink.onclick = function() { navigator.id.logout(); };
       }
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-59990056-1', 'auto');
+      ga('send', 'pageview');
     </script>
 
   </body>

@@ -1,13 +1,19 @@
-@import url(http://fonts.googleapis.com/css?family=Satisfy);
-@import url(http://fonts.googleapis.com/css?family=Oswald);
-@import url(http://fonts.googleapis.com/css?family=News+Cycle);
-@import url(http://fonts.googleapis.com/css?family=Archivo+Narrow);
+@import url(https://fonts.googleapis.com/css?family=Satisfy);
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+@import url(https://fonts.googleapis.com/css?family=News+Cycle);
+@import url(https://fonts.googleapis.com/css?family=Archivo+Narrow);
 
 /* General Styles */
 /* -------------- */
 body {
   font: 100%/1.5 "Helvetica Neue", Helvetica, Tahoma, Arial, sans-serif;
   background-color: black;
+}
+.rvanswers-body {
+  /* background-image: url("background_image.jpg"); */
+  background-color: #fff;
+  background-position: fixed;
+  background-size: cover;
 }
 
 /* Fonts */
@@ -135,7 +141,12 @@ a.oakland-logo {
 
 .navbar-inner {
   height: 80px;
-  width: 100%
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
 }
 
 img.beta {
@@ -176,14 +187,14 @@ img.beta {
 
 .modal-container {
   width: 770px;
-  background-color: #fbfbfb;
+  /* background-color: #fbfbfb; */
   float: none;
   margin: 0 auto;
   padding: 40px 50px 50px 50px;
   border:1px solid #FFF;
-  -moz-box-shadow:    0px 0px 20px 1px rgba(0, 0, 0, 0.4);
+  /* -moz-box-shadow:    0px 0px 20px 1px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.4);
-  box-shadow:         0px 0px 20px 1px rgba(0, 0, 0, 0.4);
+  box-shadow:         0px 0px 20px 1px rgba(0, 0, 0, 0.4); */
 }
 
 div#welcome-line-l {
@@ -215,12 +226,12 @@ div.pop-categories p a {
 div.pop-categories li:not(:last-child):after {
 }
 
-div.pop-categories li+li:before {
+/* div.pop-categories li+li:before {
   content: '- ';
-}
+} */
 
 div.pop-categories li {
-  display: inline;
+  display: block;
   font-size: 120%;
 }
 
@@ -403,6 +414,14 @@ input:hover#query { }
   height: 80px;
   position: relative;
   bottom: 0;
+}
+
+#signin, #signout {
+  background: transparent;
+  color: #fff;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .cfa-logos {

@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
-  before_action :require_signin
-  skip_before_action :require_signin, only: [:show, :index]
+  before_action :require_login
+  skip_before_action :require_login, only: [:show, :index]
   respond_to :json, :html
 
   def show
@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @categories = Category.by_access_count
+    @categories = Category.all.order(:name)
     @categories = @categories.select{ |c| c.articles.published.count > 0 }
     respond_with(@categories)
   end
